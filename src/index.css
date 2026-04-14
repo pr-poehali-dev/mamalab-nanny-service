@@ -4,43 +4,41 @@
 
 @layer base {
   :root {
-    --background: 36 33% 97%;
-    --foreground: 25 20% 18%;
+    --background: 168 40% 97%;
+    --foreground: 210 25% 15%;
 
-    --card: 36 40% 99%;
-    --card-foreground: 25 20% 18%;
+    --card: 0 0% 100%;
+    --card-foreground: 210 25% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 25 20% 18%;
+    --popover-foreground: 210 25% 15%;
 
-    --primary: 22 65% 58%;
-    --primary-foreground: 36 40% 99%;
+    --primary: 174 58% 59%;
+    --primary-foreground: 174 60% 12%;
 
-    --secondary: 36 60% 92%;
-    --secondary-foreground: 25 20% 25%;
+    --secondary: 170 35% 93%;
+    --secondary-foreground: 174 40% 20%;
 
-    --muted: 36 30% 94%;
-    --muted-foreground: 25 12% 50%;
+    --muted: 168 20% 93%;
+    --muted-foreground: 210 15% 45%;
 
-    --accent: 340 35% 82%;
-    --accent-foreground: 25 20% 18%;
+    --accent: 174 55% 88%;
+    --accent-foreground: 174 50% 18%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 30 25% 88%;
-    --input: 30 25% 88%;
-    --ring: 22 65% 58%;
+    --border: 168 25% 88%;
+    --input: 168 25% 88%;
+    --ring: 174 58% 59%;
 
-    --radius: 1.5rem;
+    --radius: 1.25rem;
 
-    /* Custom palette */
-    --peach: 22 75% 72%;
-    --peach-light: 30 80% 91%;
-    --cream: 38 60% 95%;
-    --warm-brown: 25 35% 35%;
-    --blush: 340 40% 88%;
-    --sage: 145 20% 72%;
+    --teal: 174 58% 59%;
+    --teal-dark: 174 62% 48%;
+    --teal-light: 170 55% 90%;
+    --teal-deep: 174 75% 25%;
+    --mint: 168 45% 95%;
   }
 }
 
@@ -49,55 +47,41 @@
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-background text-foreground;
-    font-family: "Golos Text", sans-serif;
+    font-family: "Nunito", "Golos Text", sans-serif;
+    background: linear-gradient(180deg, #f5fdfb 0%, #f0faf8 100%);
+    min-height: 100vh;
   }
 
   h1,
   h2,
-  h3 {
-    font-family: "Cormorant", serif;
+  h3,
+  h4 {
+    font-family: "Nunito", sans-serif;
+    font-weight: 800;
   }
 }
 
 @layer utilities {
-  .font-display {
-    font-family: "Cormorant", serif;
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
   }
 
-  .font-body {
-    font-family: "Golos Text", sans-serif;
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out forwards;
+  }
+
+  .animate-float {
+    animation: float 5s ease-in-out infinite;
   }
 
   .blob {
     border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
-  }
-
-  .blob-2 {
-    border-radius: 40% 60% 30% 70% / 60% 40% 60% 40%;
-  }
-
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
-  }
-
-  .animate-fade-in {
-    animation: fadeIn 0.6s ease-out forwards;
-  }
-
-  .animate-slide-up {
-    animation: slideUp 0.7s ease-out forwards;
-  }
-
-  @keyframes float {
-    0%,
-    100% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-12px);
-    }
   }
 
   @keyframes fadeIn {
@@ -112,11 +96,21 @@
   @keyframes slideUp {
     from {
       opacity: 0;
-      transform: translateY(30px);
+      transform: translateY(28px);
     }
     to {
       opacity: 1;
       transform: translateY(0);
+    }
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
     }
   }
 }
