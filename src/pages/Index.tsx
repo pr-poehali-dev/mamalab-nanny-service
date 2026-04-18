@@ -170,6 +170,7 @@ function FaqItem({ item }: { item: typeof FAQS[0] }) {
 export default function Index() {
   const [form, setForm] = useState({ name: "", phone: "", comment: "" });
   const [sent, setSent] = useState(false);
+  const [agreed, setAgreed] = useState(false);
   const [modal, setModal] = useState<"privacy" | "consent" | null>(null);
 
   return (
@@ -441,30 +442,44 @@ export default function Index() {
                   rows={3}
                   className="w-full px-5 py-3.5 bg-white border border-border rounded-2xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all resize-none text-sm"
                 />
+                <label className="flex items-start gap-3 cursor-pointer group">
+                  <div className="relative flex-shrink-0 mt-0.5">
+                    <input
+                      type="checkbox"
+                      checked={agreed}
+                      onChange={(e) => setAgreed(e.target.checked)}
+                      className="sr-only"
+                    />
+                    <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all ${agreed ? "bg-primary border-primary" : "bg-white border-border group-hover:border-primary/50"}`}>
+                      {agreed && <Icon name="Check" size={12} className="text-primary-foreground" />}
+                    </div>
+                  </div>
+                  <span className="text-xs text-muted-foreground leading-relaxed">
+                    Я даю{" "}
+                    <button
+                      type="button"
+                      onClick={(e) => { e.preventDefault(); setModal("consent"); }}
+                      className="underline underline-offset-2 hover:text-teal-deep transition-colors"
+                    >
+                      согласие на обработку персональных данных
+                    </button>{" "}
+                    и принимаю{" "}
+                    <button
+                      type="button"
+                      onClick={(e) => { e.preventDefault(); setModal("privacy"); }}
+                      className="underline underline-offset-2 hover:text-teal-deep transition-colors"
+                    >
+                      политику конфиденциальности
+                    </button>
+                  </span>
+                </label>
                 <button
-                  onClick={() => { if (form.name && form.phone) setSent(true); }}
-                  className="w-full py-3.5 bg-primary text-primary-foreground rounded-2xl font-bold hover:opacity-90 transition-all hover:shadow-md hover:scale-[1.01] active:scale-100"
+                  onClick={() => { if (form.name && form.phone && agreed) setSent(true); }}
+                  disabled={!agreed}
+                  className="w-full py-3.5 bg-primary text-primary-foreground rounded-2xl font-bold transition-all hover:shadow-md hover:scale-[1.01] active:scale-100 disabled:opacity-40 disabled:cursor-not-allowed disabled:scale-100 disabled:shadow-none"
                 >
                   Отправить заявку
                 </button>
-                <p className="text-xs text-muted-foreground text-center">
-                  Нажимая кнопку, вы даёте{" "}
-                  <button
-                    type="button"
-                    onClick={() => setModal("consent")}
-                    className="underline underline-offset-2 hover:text-teal-deep transition-colors"
-                  >
-                    согласие на обработку персональных данных
-                  </button>{" "}
-                  и принимаете{" "}
-                  <button
-                    type="button"
-                    onClick={() => setModal("privacy")}
-                    className="underline underline-offset-2 hover:text-teal-deep transition-colors"
-                  >
-                    политику конфиденциальности
-                  </button>
-                </p>
               </div>
             )}
           </div>
