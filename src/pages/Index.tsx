@@ -1,6 +1,96 @@
 import { useState } from "react";
 import Icon from "@/components/ui/icon";
 
+function Modal({ title, onClose, children }: { title: string; onClose: () => void; children: React.ReactNode }) {
+  return (
+    <div
+      className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-fade-in"
+      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+    >
+      <div className="bg-white rounded-3xl shadow-2xl w-full max-w-xl max-h-[80vh] flex flex-col animate-slide-up">
+        <div className="flex items-center justify-between px-6 py-5 border-b border-border flex-shrink-0">
+          <h2 className="font-black text-lg text-foreground">{title}</h2>
+          <button
+            onClick={onClose}
+            className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center hover:bg-muted transition-colors"
+          >
+            <Icon name="X" size={18} className="text-muted-foreground" />
+          </button>
+        </div>
+        <div className="overflow-y-auto px-6 py-5 text-sm text-muted-foreground leading-relaxed flex-1">
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function PrivacyContent() {
+  return (
+    <>
+      <p className="mb-4 text-foreground font-semibold">Политика конфиденциальности МАМАЛАБ</p>
+      <p className="mb-3">Настоящая политика конфиденциальности распространяется на сайт МАМАЛАБ и регулирует порядок обработки персональных данных пользователей.</p>
+
+      <p className="font-semibold text-foreground mt-5 mb-2">1. Оператор</p>
+      <p className="mb-3">Оператором персональных данных является сервис МАМАЛАБ, предоставляющий услуги по подбору нянь во Владивостоке и Артёме.</p>
+
+      <p className="font-semibold text-foreground mt-5 mb-2">2. Какие данные мы собираем</p>
+      <ul className="list-disc pl-5 mb-3 space-y-1">
+        <li>Имя (для обращения)</li>
+        <li>Номер телефона (для связи с вами)</li>
+        <li>Комментарий к заявке (дополнительные сведения о задаче)</li>
+      </ul>
+
+      <p className="font-semibold text-foreground mt-5 mb-2">3. Цель обработки</p>
+      <p className="mb-3">Данные используются исключительно для обработки заявки и подбора няни — связи с вами, уточнения деталей и организации знакомства с кандидатом.</p>
+
+      <p className="font-semibold text-foreground mt-5 mb-2">4. Передача третьим лицам</p>
+      <p className="mb-3">Ваши данные не передаются третьим лицам без вашего согласия, за исключением случаев, предусмотренных законодательством РФ.</p>
+
+      <p className="font-semibold text-foreground mt-5 mb-2">5. Хранение и защита</p>
+      <p className="mb-3">Мы принимаем организационные и технические меры для защиты ваших данных от несанкционированного доступа, изменения или уничтожения.</p>
+
+      <p className="font-semibold text-foreground mt-5 mb-2">6. Ваши права</p>
+      <p className="mb-3">Вы вправе в любой момент запросить изменение, уточнение или удаление ваших персональных данных, обратившись к нам по телефону или через форму обратной связи.</p>
+
+      <p className="font-semibold text-foreground mt-5 mb-2">7. Контакты</p>
+      <p>По вопросам, связанным с обработкой данных, обращайтесь: +7 994 107-75-37 (Владивосток), +7 924 520-75-37 (Артём).</p>
+    </>
+  );
+}
+
+function ConsentContent() {
+  return (
+    <>
+      <p className="mb-4 text-foreground font-semibold">Согласие на обработку персональных данных</p>
+      <p className="mb-3">
+        Настоящим я, действуя свободно, своей волей и в своём интересе, даю согласие оператору — сервису МАМАЛАБ — на обработку следующих персональных данных:
+      </p>
+      <ul className="list-disc pl-5 mb-4 space-y-1">
+        <li>имя;</li>
+        <li>контактный номер телефона;</li>
+        <li>сведения, указанные мной в поле «комментарий» при оформлении заявки.</li>
+      </ul>
+
+      <p className="font-semibold text-foreground mt-5 mb-2">Цель обработки</p>
+      <p className="mb-3">Обработка персональных данных осуществляется в целях рассмотрения заявки на подбор няни, связи со мной для уточнения деталей и организации оказания услуги.</p>
+
+      <p className="font-semibold text-foreground mt-5 mb-2">Способы обработки</p>
+      <p className="mb-3">Сбор, запись, систематизация, хранение, уточнение, использование, передача кандидатам (только в части задачи), удаление персональных данных.</p>
+
+      <p className="font-semibold text-foreground mt-5 mb-2">Срок действия согласия</p>
+      <p className="mb-3">Согласие действует до момента оказания услуги или до отзыва согласия субъектом персональных данных.</p>
+
+      <p className="font-semibold text-foreground mt-5 mb-2">Отзыв согласия</p>
+      <p className="mb-3">Я вправе отозвать настоящее согласие, направив письменное уведомление оператору по контактным номерам телефона.</p>
+
+      <p className="text-xs text-muted-foreground mt-5">
+        Обработка персональных данных осуществляется в соответствии с Федеральным законом от 27.07.2006 № 152-ФЗ «О персональных данных».
+      </p>
+    </>
+  );
+}
+
 const SERVICES = [
   {
     icon: "Clock",
@@ -80,9 +170,21 @@ function FaqItem({ item }: { item: typeof FAQS[0] }) {
 export default function Index() {
   const [form, setForm] = useState({ name: "", phone: "", comment: "" });
   const [sent, setSent] = useState(false);
+  const [modal, setModal] = useState<"privacy" | "consent" | null>(null);
 
   return (
     <div className="min-h-screen overflow-x-hidden">
+
+      {modal === "privacy" && (
+        <Modal title="Политика конфиденциальности" onClose={() => setModal(null)}>
+          <PrivacyContent />
+        </Modal>
+      )}
+      {modal === "consent" && (
+        <Modal title="Согласие на обработку персональных данных" onClose={() => setModal(null)}>
+          <ConsentContent />
+        </Modal>
+      )}
 
       {/* NAV */}
       <nav className="sticky top-0 z-50 bg-white/85 backdrop-blur-md border-b border-border">
@@ -346,7 +448,22 @@ export default function Index() {
                   Отправить заявку
                 </button>
                 <p className="text-xs text-muted-foreground text-center">
-                  Нажимая кнопку, вы соглашаетесь с обработкой персональных данных
+                  Нажимая кнопку, вы даёте{" "}
+                  <button
+                    type="button"
+                    onClick={() => setModal("consent")}
+                    className="underline underline-offset-2 hover:text-teal-deep transition-colors"
+                  >
+                    согласие на обработку персональных данных
+                  </button>{" "}
+                  и принимаете{" "}
+                  <button
+                    type="button"
+                    onClick={() => setModal("privacy")}
+                    className="underline underline-offset-2 hover:text-teal-deep transition-colors"
+                  >
+                    политику конфиденциальности
+                  </button>
                 </p>
               </div>
             )}
@@ -383,7 +500,21 @@ export default function Index() {
             <span className="font-bold text-foreground">МАМАЛАБ</span>
           </div>
           <span>© 2026 МАМАЛАБ. Все права защищены.</span>
-          <div className="flex gap-5">
+          <div className="flex flex-wrap gap-4 justify-center">
+            <button
+              onClick={() => setModal("privacy")}
+              className="hover:text-foreground underline underline-offset-2 transition-colors"
+            >
+              Политика конфиденциальности
+            </button>
+            <button
+              onClick={() => setModal("consent")}
+              className="hover:text-foreground underline underline-offset-2 transition-colors"
+            >
+              Согласие на обработку ПД
+            </button>
+          </div>
+          <div className="flex flex-wrap gap-4 justify-center">
             <a href="tel:+79941077537" className="hover:text-foreground transition-colors">Владивосток: +7 994 107-75-37</a>
             <a href="tel:+79245207537" className="hover:text-foreground transition-colors">Артём: +7 924 520-75-37</a>
           </div>
