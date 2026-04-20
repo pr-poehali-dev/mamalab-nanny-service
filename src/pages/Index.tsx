@@ -583,6 +583,7 @@ export default function Index() {
                   placeholder="+7 (___) ___-__-__"
                   className="w-full px-5 py-3.5 bg-white border border-border rounded-2xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all text-sm"
                 />
+                <p className="text-xs text-muted-foreground mt-1.5">Вводите номер корректно, чтобы мы смогли с вами связаться</p>
                 <textarea
                   value={form.comment}
                   onChange={(e) => setForm({ ...form, comment: e.target.value })}
