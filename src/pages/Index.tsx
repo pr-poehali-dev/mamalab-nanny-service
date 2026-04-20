@@ -170,8 +170,23 @@ function FaqItem({ item }: { item: typeof FAQS[0] }) {
 export default function Index() {
   const [form, setForm] = useState({ name: "", phone: "", comment: "" });
   const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [agreed, setAgreed] = useState(false);
   const [modal, setModal] = useState<"privacy" | "consent" | null>(null);
+
+  const handleSubmit = async () => {
+    if (!form.name || !form.phone || !agreed) return;
+    setLoading(true);
+    try {
+      await fetch("https://functions.poehali.dev/7188dc71-84bb-4fe9-912a-7c5aaad2098a", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+    } catch (e) { console.error(e); }
+    setLoading(false);
+    setSent(true);
+  };
 
   return (
     <div className="min-h-screen overflow-x-hidden">
@@ -485,11 +500,11 @@ export default function Index() {
                   </span>
                 </label>
                 <button
-                  onClick={() => { if (form.name && form.phone && agreed) setSent(true); }}
-                  disabled={!agreed}
+                  onClick={handleSubmit}
+                  disabled={!agreed || loading}
                   className="w-full py-3.5 bg-primary text-primary-foreground rounded-2xl font-bold transition-all hover:shadow-md hover:scale-[1.01] active:scale-100 disabled:opacity-40 disabled:cursor-not-allowed disabled:scale-100 disabled:shadow-none"
                 >
-                  Отправить заявку
+                  {loading ? "Отправляем..." : "Отправить заявку"}
                 </button>
               </div>
             )}
