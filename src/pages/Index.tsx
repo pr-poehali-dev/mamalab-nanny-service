@@ -396,13 +396,24 @@ export default function Index() {
                   {c.city}
                 </div>
                 <div className="text-2xl font-black text-teal-deep mb-5">{c.phone}</div>
-                <a
-                  href={c.tel}
-                  className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-2xl font-bold hover:opacity-90 transition-all hover:shadow-md hover:scale-[1.02]"
-                >
-                  <Icon name="Phone" size={16} />
-                  Позвонить
-                </a>
+                <div className="flex flex-wrap gap-3">
+                  <a
+                    href={c.tel}
+                    className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-2xl font-bold hover:opacity-90 transition-all hover:shadow-md hover:scale-[1.02]"
+                  >
+                    <Icon name="Phone" size={16} />
+                    Позвонить
+                  </a>
+                  <a
+                    href="https://t.me/mama_lab_vl"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 bg-[#2AABEE] text-white px-6 py-3 rounded-2xl font-bold hover:opacity-90 transition-all hover:shadow-md hover:scale-[1.02]"
+                  >
+                    <Icon name="Send" size={16} />
+                    Telegram
+                  </a>
+                </div>
               </div>
             ))}
           </div>
@@ -514,7 +525,18 @@ export default function Index() {
             />
             <span className="font-bold text-foreground">МАМАЛАБ</span>
           </div>
-          <span>© 2026 МАМАЛАБ. Все права защищены.</span>
+          <div className="flex items-center gap-3">
+            <span>© 2026 МАМАЛАБ. Все права защищены.</span>
+            <a
+              href="https://t.me/mama_lab_vl"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 bg-[#2AABEE] text-white px-3 py-1.5 rounded-xl text-xs font-bold hover:opacity-90 transition-all"
+            >
+              <Icon name="Send" size={13} />
+              Telegram
+            </a>
+          </div>
           <div className="flex flex-wrap gap-4 justify-center">
             <button
               onClick={() => setModal("privacy")}
