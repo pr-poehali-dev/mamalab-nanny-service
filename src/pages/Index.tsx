@@ -443,7 +443,14 @@ export default function Index() {
                   <Icon name="CheckCircle" size={32} className="text-teal-dark" />
                 </div>
                 <div className="font-black text-xl text-foreground mb-2">Заявка отправлена!</div>
-                <p className="text-sm text-muted-foreground">Мы свяжемся с вами в ближайшее время</p>
+                <p className="text-sm text-muted-foreground mb-6">Мы свяжемся с вами в ближайшее время</p>
+                <button
+                  onClick={() => { setSent(false); setForm({ name: "", phone: "", comment: "" }); setAgreed(false); }}
+                  className="inline-flex items-center gap-2 px-6 py-3 border border-border rounded-2xl text-sm font-bold text-foreground hover:bg-secondary transition-all"
+                >
+                  <Icon name="RotateCcw" size={15} />
+                  Оформить заявку заново
+                </button>
               </div>
             ) : (
               <div className="flex flex-col gap-3">
