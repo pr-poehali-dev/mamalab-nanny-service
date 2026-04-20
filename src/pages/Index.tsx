@@ -233,7 +233,7 @@ function ReviewsCarousel() {
       <div className="container">
         <div className="max-w-2xl mb-12">
           <h2 className="text-[clamp(26px,3vw,38px)] font-black text-foreground mb-3">Отзывы родителей</h2>
-          <p className="text-muted-foreground leading-relaxed">Реальные отзывы с vl.ru — без редактуры и прикрас</p>
+          <p className="text-muted-foreground leading-relaxed">Реальные отзывы с <a href="https://www.vl.ru/mama-lab#comments" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-2 hover:opacity-80 transition-opacity">vl.ru</a> — без редактуры и прикрас</p>
         </div>
         <div className="grid md:grid-cols-3 gap-5 mb-8">
           {visible.map((r, i) => (
