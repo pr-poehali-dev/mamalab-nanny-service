@@ -167,6 +167,118 @@ function FaqItem({ item }: { item: typeof FAQS[0] }) {
   );
 }
 
+const REVIEWS = [
+  {
+    name: "Анонимный пользователь",
+    pros: "Первоклассные специалисты",
+    text: "Несколько раз обращалась за помощью в данное агентство. Руководитель лично отбирает специалистов под запрос мамы. Все сотрудники как на подбор: активные, позитивные, настоящие профессионалы! Мой ребенок, за время нахождения с няней, даже не вспоминала обо мне! Однозначно советую агентство!",
+  },
+  {
+    name: "Анонимный пользователь",
+    pros: "Качество",
+    text: "В агентство обращаюсь не первый раз. Очень довольна приходящим няням. Профессиональный подход к детям! Внимание и забота, а это самое главное с работой с детьми. Спасибо большое 🌷",
+  },
+  {
+    name: "Многодетная мама",
+    pros: "Супер агентство!",
+    text: "Имею высшее педагогическое образование, являюсь многодетной мамой. Каждая приходящая няня от агентства уникальна. Дети довольны — мама счастлива!! Спасибо за отличный сервис и высокое качество услуг!!!",
+  },
+  {
+    name: "Анонимный пользователь",
+    pros: "Оперативность, профессионализм, полное сопровождение",
+    text: "На агентство наткнулась случайно, но как же я рада! Просто палочка-выручалочка! Юлия дала развёрнутую информацию, подобрала няню по запросу. Няня Татьяна — замечательный человек. Нашла подход к ребёнку, всегда была на связи. Рекомендую! Агентству успехов и процветания!",
+  },
+  {
+    name: "Мама малышки 9 мес.",
+    pros: "",
+    text: "В самый первый раз ОЧЕНЬ сильно переживала, что незнакомый человек будет с моим ребенком. Но как же я рада, что всё-таки решила попробовать. Заказала няню когда малышке было 6 месяцев, сейчас нам уже 9 месяцев — и страх совсем пропал. Няни на опыте и очень милые, хорошие, знающие детей!",
+  },
+  {
+    name: "Анонимный пользователь",
+    pros: "Цыплакова Алина — прекрасная девушка",
+    text: "Воспользовались услугами на период простуды ребенка. Оперативно подобрали варианты. Приехала Алина Цыплакова. Быстро подружилась с моим сыном, и на второй день ребенок бежал её встречать к двери. Девушка молодая и уже с опытом. Довольны родители и ребенок. Будем обращаться!",
+  },
+  {
+    name: "Анонимный пользователь",
+    pros: "Кобец Татьяна — лучшая няня!",
+    text: "Очень переживала перед первым визитом. Но Татьяна с порога расположила к себе — потрясающий человек с блестящими глазами и заразительной энергетикой! Ребенок с соской, за 3 часа ни разу ею не воспользовался. Когда захожу домой — слышу громкий, счастливый смех ребенка. Всё супер!",
+  },
+  {
+    name: "Анонимный пользователь",
+    pros: "Доброта! Сервис под мои запросы!",
+    text: "Успеваю переделать море дел и чувствую свою эффективность, когда знаю что дети под присмотром и увлечены! Побольше бы таких агентств по городам Дальнего Востока.",
+  },
+  {
+    name: "Анонимный пользователь",
+    pros: "Оперативность",
+    text: "Вечером обратилась, на следующий день в 8 утра у меня была уже чудесная няня. Приехала вовремя, очень ласковая молодая девушка сразу нашла общий язык с ребенком. Дочь даже загрустила когда она ушла 😊",
+  },
+];
+
+function ReviewsCarousel() {
+  const [current, setCurrent] = useState(0);
+  const total = REVIEWS.length;
+
+  const prev = () => setCurrent((c) => (c - 1 + total) % total);
+  const next = () => setCurrent((c) => (c + 1) % total);
+
+  const visible = [
+    REVIEWS[(current) % total],
+    REVIEWS[(current + 1) % total],
+    REVIEWS[(current + 2) % total],
+  ];
+
+  return (
+    <section className="py-20 bg-background">
+      <div className="container">
+        <div className="max-w-2xl mb-12">
+          <h2 className="text-[clamp(26px,3vw,38px)] font-black text-foreground mb-3">Отзывы родителей</h2>
+          <p className="text-muted-foreground leading-relaxed">Реальные отзывы с vl.ru — без редактуры и прикрас</p>
+        </div>
+        <div className="grid md:grid-cols-3 gap-5 mb-8">
+          {visible.map((r, i) => (
+            <div key={i} className="bg-white border border-border rounded-3xl p-6 flex flex-col gap-3 shadow-sm">
+              <div className="flex gap-0.5">
+                {Array.from({ length: 5 }).map((_, s) => (
+                  <Icon key={s} name="Star" size={15} className="text-amber-400 fill-amber-400" />
+                ))}
+              </div>
+              {r.pros && (
+                <div className="text-sm font-bold text-teal-deep">{r.pros}</div>
+              )}
+              <p className="text-sm text-muted-foreground leading-relaxed flex-1">{r.text}</p>
+              <div className="text-xs font-semibold text-foreground/50 border-t border-border pt-3">{r.name}</div>
+            </div>
+          ))}
+        </div>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={prev}
+            className="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:bg-secondary transition-all"
+          >
+            <Icon name="ChevronLeft" size={18} />
+          </button>
+          <div className="flex gap-1.5">
+            {REVIEWS.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrent(i)}
+                className={`h-2 rounded-full transition-all ${i === current ? "w-6 bg-primary" : "w-2 bg-border"}`}
+              />
+            ))}
+          </div>
+          <button
+            onClick={next}
+            className="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:bg-secondary transition-all"
+          >
+            <Icon name="ChevronRight" size={18} />
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function Index() {
   const [form, setForm] = useState({ name: "", phone: "", comment: "" });
   const [sent, setSent] = useState(false);
@@ -392,6 +504,9 @@ export default function Index() {
           ))}
         </div>
       </section>
+
+      {/* REVIEWS */}
+      <ReviewsCarousel />
 
       {/* CONTACTS */}
       <section id="contacts" className="bg-white py-20">
